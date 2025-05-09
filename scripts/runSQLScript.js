@@ -1,31 +1,28 @@
 const fs = require('fs');
-const path = require('path');
-const { Pool } = require('pg');
-require('dotenv').config();
+const { Client } = require('pg');
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+// Configuração do banco
+const client = new Client({
+  user: '',
+  host: 'localhost',
+  database: 'seu_banco',
+  password: 'sua_senha',
+  port: 5432, // padrão do PostgreSQL
 });
 
-const runSQLScript = async () => {
-  const filePath = path.join(__dirname, 'init.sql');
-  const sql = fs.readFileSync(filePath, 'utf8');
-
+async function runScript() {
   try {
-    await pool.query(sql);
-    console.log('Script SQL executado com sucesso!');
-  } catch (err) {
-    console.error('Erro ao executar o script SQL:', err);
-  } finally {
-    await pool.end();
-  }
-};
+    await client.connect();
 
-runSQLScript();
+    const sql = fs.readFileSync('./script.sql', 'utf8');
+    await client.query(sql);
+
+    console.log('Script SQL executado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao executar o script SQL:', error);
+  } finally {
+    await client.end();
+  }
+}
+
+runScript();

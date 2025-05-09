@@ -1,83 +1,84 @@
-# Boilerplate MVC em Node.js com PostgreSQL
+# MoneyMap - Controle Financeiro Pessoal
 
-Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o padrão MVC (Model-View-Controller), utilizando PostgreSQL como banco de dados.
+## Descrição do Projeto
 
-## Requisitos
+**MoneyMap** é uma aplicação de controle financeiro pessoal que permite aos usuários registrar suas receitas e despesas, definir metas de gastos, visualizar seu saldo atual, acompanhar seu desempenho financeiro e receber alertas sobre possíveis excessos. O sistema também oferece funcionalidades bônus, como análise inteligente de gastos e projeção de economia.
 
-- Node.js (versão X.X.X)
-- PostgreSQL (versão X.X.X)
+## Funcionalidades
+
+### Funcionalidades principais (MVP)
+- **Cadastro e Login de Usuário**: Autenticação simples via e-mail e senha. Dados protegidos por autenticação.
+- **Registro de Movimentações**: Registro de receitas e despesas com título, valor, categoria, data e tipo (entrada/saída). Visualização das transações com filtros por período e tipo.
+- **Categorias Personalizáveis**: O usuário pode criar categorias personalizadas como Alimentação, Transporte, Lazer, etc. CRUD de categorias para o usuário.
+- **Dashboard Financeiro**: Exibição do saldo atual e totais de receitas vs. despesas. Gráficos de pizza e linha para visualização do desempenho financeiro.
+- **Análises Inteligentes**: Gasto médio por categoria, identificação da categoria com maior gasto no mês e sugestões simples (ex: "Você gastou 25% a mais em Lazer este mês").
+- **Planejamento Mensal**: Definição de limites de gastos por categoria e alertas quando o limite for ultrapassado.
+- **Projeção de Economia**: Simulação de quanto pode sobrar no mês, com barra de progresso para metas de economia.
+
+## Tecnologias Utilizadas
+
+- **Banco de Dados**: PostgreSQL
+- **Backend**: Node.js
+- **Frontend**: HTML5, Css3, Javascript
+- **Gráficos**: Chart.js (para visualização de gráficos)
+
+## Como Usar
 
 ## Instalação
 
 1. **Clonar o repositório:**
 
 ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
+   git clone https://github.com/MZMS1510/pokemon-database-project.git
+   cd project-pokemon-database
 ```
 
 2. **Instalar as dependências:**
-    
+
 ```bash
 npm install
 ```
-    
-3. **Configurar o arquivo `.env`:**
-    
-Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
-    
 
-Configuração do Banco de Dados
-------------------------------
+3. **Configurar o arquivo `.env`:**
+
+Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
+
+## Configuração do Banco de Dados
 
 1. **Criar banco de dados:**
-    
-    Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
-    
+
+   Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
+
 2. **Executar o script SQL de inicialização:**
-    
+
 ```bash
 npm run init-db
 ```
-    
-Isso criará a tabela `users` no seu banco de dados PostgreSQL com UUID como chave primária e inserirá alguns registros de exemplo.
-    
 
-Funcionalidades
----------------
+Isso criará todas as tabelas do projeto no seu banco de dados PostgreSQL com UUID como chave primária.
 
-* **Padrão MVC:** Estrutura organizada em Model, View e Controller.
-* **PostgreSQL:** Banco de dados relacional utilizado para persistência dos dados.
-* **UUID:** Utilização de UUID como chave primária na tabela `users`.
-* **Scripts com `nodemon`:** Utilização do `nodemon` para reiniciar automaticamente o servidor após alterações no código.
-* **Testes:** Inclui estrutura básica para testes automatizados.
 
-Scripts Disponíveis
--------------------
+# Scripts Disponíveis
 
-* `npm start`: Inicia o servidor Node.js.
-* `npm run dev`: Inicia o servidor com `nodemon`, reiniciando automaticamente após alterações no código.
-* `npm run test`: Executa os testes automatizados.
-* `npm run test:coverage`: Executa os testes e gera um relatório de cobertura de código.
+- `npm start`: Inicia o servidor Node.js.
+- `npm run dev`: Inicia o servidor com reinicialização automática após alterações no código.
+- `npm run init-db`: Inicia as tabelas necessárias para o banco de dados.
 
-Estrutura de Diretórios
------------------------
+## Estrutura de Diretórios
 
-* **`config/`**: Configurações do banco de dados e outras configurações do projeto.
-* **`controllers/`**: Controladores da aplicação (lógica de negócio).
-* **`models/`**: Modelos da aplicação (definições de dados e interações com o banco de dados).
-* **`routes/`**: Rotas da aplicação.
-* **`tests/`**: Testes automatizados.
-* **`views/`**: Views da aplicação (se aplicável).
+- **`assets/`**: Arquivos de imagem utilizados principalmente na documentação.
+- **`config/`**: Configurações do banco de dados e outras configurações do projeto.
+- **`controllers/`**: Controladores da aplicação (lógica de negócio).
+- **`models/`**: Modelos da aplicação (definições de dados e interações com o banco de dados).
+- **`routes/`**: Rotas da aplicação.
+- **`scripts/`**: Scripts públicos a serem rodados para o setup do projeto.
+- **`seeders/`**: Arquivos de população do banco de dados para teste.
+- **`services/`**: Conexão entre os modelos do banco de dados e os controladores da aplicação.
 
-Contribuição
-------------
+## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir um issue ou enviar um pull request.
 
-Licença
--------
+## Licença
 
 Este projeto está licenciado sob a Licença MIT.
-
-Este README.md fornece uma visão geral clara do boilerplate, incluindo instruções de instalação, configuração do banco de dados, funcionalidades principais, scripts disponíveis, estrutura de diretórios, como contribuir e informações de licença. Certifique-se de personalizar as seções com detalhes específicos do seu projeto conforme necessário.
