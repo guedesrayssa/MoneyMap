@@ -15,7 +15,6 @@
 - **Registro de Movimentações**: Registro de receitas e despesas com título, valor, categoria, data e tipo (entrada/saída). Visualização das transações com filtros por período e tipo.
 - **Categorias Personalizáveis**: O usuário pode criar categorias personalizadas como Alimentação, Transporte, Lazer, etc. CRUD de categorias para o usuário.
 - **Dashboard Financeiro**: Exibição do saldo atual e totais de receitas vs. despesas. Gráficos de pizza e linha para visualização do desempenho financeiro.
-- **Análises Inteligentes**: Gasto médio por categoria, identificação da categoria com maior gasto no mês e sugestões simples (ex: "Você gastou 25% a mais em Lazer este mês").
 - **Planejamento Mensal**: Definição de limites de gastos por categoria e alertas quando o limite for ultrapassado.
 - **Projeção de Economia**: Simulação de quanto pode sobrar no mês, com barra de progresso para metas de economia.
 
