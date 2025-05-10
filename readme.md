@@ -1,6 +1,6 @@
 
 <h1 align="center">
-<img src="../assets/docs/moneyMap_logo.png" width=200>
+<img src="assets/docs/moneyMap_logo.png" width=200>
 <p> MoneyMap - Controle Financeiro Pessoal </p>
 </h1>
 
