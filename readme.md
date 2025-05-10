@@ -1,4 +1,8 @@
-# MoneyMap - Controle Financeiro Pessoal
+
+<h1 align="center">
+<img src="../assets/docs/moneyMap_logo.png" width=200>
+<p> MoneyMap - Controle Financeiro Pessoal </p>
+</h1>
 
 ## Descrição do Projeto
 
@@ -20,17 +24,17 @@
 - **Banco de Dados**: PostgreSQL
 - **Backend**: Node.js
 - **Frontend**: HTML5, Css3, Javascript
-- **Gráficos**: Chart.js (para visualização de gráficos)
 
-## Como Usar
+---
+# Como Usar
 
 ## Instalação
 
 1. **Clonar o repositório:**
 
 ```bash
-   git clone https://github.com/MZMS1510/pokemon-database-project.git
-   cd project-pokemon-database
+   git clone https://github.com/guedesrayssa/MoneyMap.git
+   cd money-map
 ```
 
 2. **Instalar as dependências:**
@@ -39,9 +43,7 @@
 npm install
 ```
 
-3. **Configurar o arquivo `.env`:**
 
-Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
 
 ## Configuração do Banco de Dados
 
