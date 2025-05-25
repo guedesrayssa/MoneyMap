@@ -1,37 +1,128 @@
-# Teste da rota GET /users
-GET http://localhost:3000/users
+
+# USERS
+GET http://localhost:3000/api/users
 Accept: application/json
 
 ###
-
-# Teste da rota GET /users/:id
-GET http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+GET http://localhost:3000/api/users/1
 Accept: application/json
 
 ###
-
-# Teste da rota POST /users
-POST http://localhost:3000/users
+POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "john@example.com"
+  "email": "john@example.com",
+  "password": "123456"
 }
 
 ###
-
-# Teste da rota PUT /users/:id
-PUT http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+PUT http://localhost:3000/api/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
 Content-Type: application/json
-
 {
   "name": "Jane Doe",
   "email": "jane@example.com"
 }
 
 ###
+DELETE http://localhost:3000/api/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+Accept: application/json
 
-# Teste da rota DELETE /users/:id
-DELETE http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+###
+# CATEGORIES
+GET http://localhost:3000/api/categories
+Accept: application/json
+
+###
+GET http://localhost:3000/api/categories/1
+Accept: application/json
+
+###
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+{
+  "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
+  "name": "Alimentação",
+  "type": "despesa"
+}
+
+###
+PUT http://localhost:3000/api/categories/1
+Content-Type: application/json
+{
+  "name": "Mercado",
+  "type": "despesa"
+}
+
+###
+DELETE http://localhost:3000/api/categories/1
+Accept: application/json
+
+###
+# TRANSACTIONS
+GET http://localhost:3000/api/transactions
+Accept: application/json
+
+###
+GET http://localhost:3000/api/transactions/1
+Accept: application/json
+
+###
+POST http://localhost:3000/api/transactions
+Content-Type: application/json
+{
+  "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
+  "category_id": 1,
+  "title": "Compra no mercado",
+  "amount": 100.50,
+  "date": "2025-05-22",
+  "description": "Compras do mês"
+}
+
+###
+PUT http://localhost:3000/api/transactions/1
+Content-Type: application/json
+{
+  "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
+  "category_id": 1,
+  "title": "Compra no mercado alterada",
+  "amount": 120.00,
+  "date": "2025-05-22",
+  "description": "Compras do mês alteradas"
+}
+
+###
+DELETE http://localhost:3000/api/transactions/1
+Accept: application/json
+
+###
+# GOALS
+GET http://localhost:3000/api/goals
+Accept: application/json
+
+###
+POST http://localhost:3000/api/goals
+Content-Type: application/json
+{
+  "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
+  "category_id": 1,
+  "title": "Meta de economia",
+  "target_amount": 500.00,
+  "current_amount": 100.00,
+  "deadline": "2025-12-31"
+}
+
+###
+PUT http://localhost:3000/api/goals/1
+Content-Type: application/json
+{
+  "title": "Meta de economia alterada",
+  "target_amount": 600.00,
+  "current_amount": 150.00,
+  "deadline": "2025-12-31"
+}
+
+###
+DELETE http://localhost:3000/api/goals/1
 Accept: application/json
