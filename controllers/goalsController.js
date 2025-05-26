@@ -3,10 +3,16 @@ const pool = require('../config/database');
 
 const getAllGoals = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM goals');
-    res.json(result.rows);
+    const result = await pool.query(`
+      SELECT g.*, c.name as category_name 
+      FROM goals g 
+      LEFT JOIN categories c ON g.category_id = c.id
+      ORDER BY g.deadline ASC
+    `);
+    res.status(200).json(result.rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Error in getAllGoals:', err);
+    res.status(500).json({ error: 'Internal server error while fetching goals' });
   }
 };
 

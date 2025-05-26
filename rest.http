@@ -18,8 +18,9 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/users
+PUT http://localhost:3000/api/users/1
 Content-Type: application/json
+
 {
   "name": "Jane Doe",
   "email": "jane@example.com"
@@ -41,6 +42,7 @@ Accept: application/json
 ###
 POST http://localhost:3000/api/categories
 Content-Type: application/json
+
 {
   "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
   "name": "Alimentação",
@@ -50,6 +52,7 @@ Content-Type: application/json
 ###
 PUT http://localhost:3000/api/categories/1
 Content-Type: application/json
+
 {
   "name": "Mercado",
   "type": "despesa"
@@ -71,6 +74,7 @@ Accept: application/json
 ###
 POST http://localhost:3000/api/transactions
 Content-Type: application/json
+
 {
   "user_id": "39602f41-b43e-4fa8-b7f7-34c7a516740b",
   "category_id": 1,
