@@ -113,10 +113,18 @@ Relacionamentos e Regras de Integridade:
 ---
 
 
-### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+### 3.1.1 BD e Models 
+Nesta seção, apresentamos os Models desenvolvidos para o sistema MoneyMap, responsáveis por estruturar e gerenciar a lógica de acesso aos dados no banco relacional. Cada Model corresponde a uma entidade central da aplicação e encapsula os métodos necessários para a criação, leitura, atualização e exclusão de informações, seguindo o padrão CRUD (Create, Read, Update, Delete).
 
-### 3.2. Arquitetura (Semana 5)
+Os principais Models implementados são:
+
+- [**`models/usersModel`**](models/usersModel.js): Gerencia os dados dos usuários cadastrados, incluindo nome, e-mail e autenticação.
+- [**`models/transactionsModel`**](models/transactionsModel.js): Representa as transações financeiras realizadas, com informações como valor, data, descrição e tipo (receita ou despesa).
+- [**`models/categoriesModel`**](models/categoriesModel.js): Permite a categorização das transações, auxiliando na organização e análise das finanças.  
+- [**`models/goalsModel`**](models/goalsModel.js): Armazena as metas financeiras definidas pelos usuários, possibilitando o acompanhamento do progresso ao longo do tempo.
+
+Cada Model foi desenvolvido utilizando JavaScript e realiza operações no banco de dados PostgreSQL através de comandos SQL parametrizados, garantindo segurança contra injeção de dados e promovendo a eficiência nas consultas.
+### 3.2. Arquitetura da Aplicação
 
 ![Diagrama de arquitetura da aplicação](../assets/docs/diagrama_arquitetura.jpg)	
 <div align="center">
