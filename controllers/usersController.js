@@ -12,18 +12,27 @@ class User {
   }
 
   static async create(data) {
+   
+    const passwordValue = data.password_ || data.password;
     const result = await db.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-      [data.name, data.email, data.password]
+      'INSERT INTO users (name, email, password_) VALUES ($1, $2, $3) RETURNING *',
+      [data.name, data.email, passwordValue]
     );
     return result.rows[0];
   }
 
   static async update(id, data) {
-    const result = await db.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',
-      [data.name, data.email, id]
-    );
+
+    let query, params;
+    if (data.password_ || data.password) {
+      const passwordValue = data.password_ || data.password;
+      query = 'UPDATE users SET name = $1, email = $2, password_ = $3 WHERE id = $4 RETURNING *';
+      params = [data.name, data.email, passwordValue, id];
+    } else {
+      query = 'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *';
+      params = [data.name, data.email, id];
+    }
+    const result = await db.query(query, params);
     return result.rows[0];
   }
 
@@ -59,7 +68,13 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
+    // Garante que password_ seja passado para o model
+    const userData = { ...req.body };
+    if (userData.password) {
+      userData.password_ = userData.password;
+      delete userData.password;
+    }
+    const newUser = await User.create(userData);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
