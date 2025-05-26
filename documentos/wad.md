@@ -118,14 +118,37 @@ Relacionamentos e Regras de Integridade:
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+![Diagrama de arquitetura da aplicação](../assets/docs/diagrama_arquitetura.jpg)	
+<div align="center">
+<p>Figura 2: Diagrama de Arquitetura da aplicação</p>
+</div>
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+
+ O diagrama acima ilustra a arquitetura da aplicação, que segue o padrão MVC (Model-View-Controller) e está dividida em duas camadas principais: **Front-end** e **Back-end**. 
+
+
+#### **Front-end**
+
+- **HTML, CSS e JS**: São as tecnologias base para a construção da interface do usuário.
+
+
+#### **Back-end**
+
+- **Node.js**: Ambiente de execução para JavaScript no lado do servidor.
+- **Express.js**: Framework para criar a API RESTful que gerencia as requisições e respostas.
+- **PostgreSQL**: Banco de dados relacional utilizado para armazenar as informações da aplicação.
+- **Supabase**: Ferramenta que complementa o PostgreSQL, oferecendo funcionalidades adicionais como autenticação e armazenamento.
+
+#### **Fluxo de Dados**
+
+1. O usuário interage com a interface no navegador (HTML, CSS, JS).
+2. As ações do usuário são processadas pelo React, que utiliza o Axios para enviar requisições HTTP para a API.
+3. A API, construída com Express.js, recebe as requisições e as encaminha para os controllers.
+4. Os controllers processam as requisições, interagindo com os models definidos no Sequelize.
+5. O Sequelize traduz as operações para comandos SQL, que são executados no banco de dados PostgreSQL.
+6. Os dados retornam pelo mesmo caminho, sendo enviados do banco para os models, dos models para os controllers, e dos controllers para o front-end, onde são exibidos ao usuário.
+
+Essa arquitetura modular promove a separação de responsabilidades, facilitando a manutenção, escalabilidade e testes da aplicação.
 
 ### 3.3. Wireframes (Semana 03 - opcional)
 
