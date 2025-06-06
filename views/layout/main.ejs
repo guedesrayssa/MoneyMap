@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>  
-  <style>
-    <%- include('../css/style.css'); %>
-  </style>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <!-- Inclui o cabeçalho como um partial -->
@@ -18,8 +16,7 @@
   </main>
 
   <footer>
-    <!-- Rodapé comum aqui -->
-    <p>Rodapé da Aplicação</p>
+    <% include('../components/footer') %>
   </footer>
 
   <!-- Adicione scripts JS se necessário -->
