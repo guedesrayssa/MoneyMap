@@ -4,19 +4,36 @@ const path = require('path');
 
 // Roteamento para páginas dinâmicas
 router.get('/', (req, res) => {
-  res.render(path.join(__dirname, '../views/layout/main'), {
-    pageTitle: 'Página Inicial',
-    content: path.join(__dirname, '../views/pages/page1')
+  res.render('layout/main', {
+    pageTitle: 'MoneyMap - Dashboard',
+    activeTab: 'dashboard',
+    content: 'dashboard'
   });
 });
 
-router.get('/about', (req, res) => {
-  res.render(path.join(__dirname, '../views/layout/main'), {
-    pageTitle: 'Página Inicial',
-    content: path.join(__dirname, '../views/pages/page2')
+router.get('/transactions', (req, res) => {
+  res.render('layout/main', {
+    pageTitle: 'MoneyMap - Transações',
+    activeTab: 'transactions',
+    content: 'dashboard'
   });
 });
 
-// Adicione outras rotas conforme necessário
+router.get('/categories', (req, res) => {
+  res.render('layout/main', {
+    pageTitle: 'MoneyMap - Categorias',
+    activeTab: 'categories',
+    content: 'dashboard'
+  });
+});
+
+router.get('/goals', (req, res) => {
+  res.render('layout/main', {
+    pageTitle: 'MoneyMap - Metas',
+    activeTab: 'goals',
+    content: 'dashboard'
+  });
+});
+
 
 module.exports = router;

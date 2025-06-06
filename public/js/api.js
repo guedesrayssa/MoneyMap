@@ -5,9 +5,17 @@ const API_BASE_URL = 'http://localhost:3000/api';
 const api = {
     // Transações
     async getTransactions() {
-        const response = await fetch(`${API_BASE_URL}/transactions`);
-        if (!response.ok) throw new Error('Erro ao buscar transações');
-        return response.json();
+        try {
+            const response = await fetch(`${API_BASE_URL}/transactions`);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao buscar transações');
+            }
+            return response.json();
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            throw error;
+        }
     },
 
     async createTransaction(data) {
@@ -32,30 +40,40 @@ const api = {
         });
         if (!response.ok) throw new Error('Erro ao atualizar transação');
         return response.json();
-    },
-
-    async deleteTransaction(id) {
+    }, async deleteTransaction(id) {
         const response = await fetch(`${API_BASE_URL}/transactions/${id}`, {
             method: 'DELETE'
         });
         if (!response.ok) throw new Error('Erro ao deletar transação');
         return response.json();
-    },
-
-    // Categorias
+    },    // Categorias
     async getCategories() {
-        const response = await fetch(`${API_BASE_URL}/categories`);
-        if (!response.ok) throw new Error('Erro ao buscar categorias');
-        return response.json();
+        try {
+            const response = await fetch(`${API_BASE_URL}/categories`);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao buscar categorias');
+            }
+            return response.json();
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            throw error;
+        }
     },
 
     async createCategory(data) {
+        // Converter o tipo de categoria para o formato do backend se necessário
+        const categoryData = {
+            ...data,
+            type: data.type === 'income' ? 'receita' : data.type === 'expense' ? 'despesa' : data.type
+        };
+
         const response = await fetch(`${API_BASE_URL}/categories`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(categoryData)
         });
         if (!response.ok) throw new Error('Erro ao criar categoria');
         return response.json();

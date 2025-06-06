@@ -24,15 +24,30 @@ const getCategoryById = async (req, res) => {
 };
 
 const createCategory = async (req, res) => {
-  const { user_id, name, type } = req.body;
   try {
+    const { name, type, color, icon } = req.body;
+
+    if (!name || !type) {
+      return res.status(400).json({ error: 'Nome e tipo são obrigatórios' });
+    }
+
+    // Validar o tipo
+    if (!['receita', 'despesa', 'income', 'expense'].includes(type)) {
+      return res.status(400).json({ error: 'Tipo inválido. Use: receita, despesa, income ou expense' });
+    }
+
+    // Converter tipo para formato do banco de dados
+    const dbType = type === 'income' ? 'receita' : type === 'expense' ? 'despesa' : type;
+
     const result = await pool.query(
-      'INSERT INTO categories (user_id, name, type) VALUES ($1, $2, $3) RETURNING *',
-      [user_id, name, type]
+      'INSERT INTO categories (user_id, name, type, color, icon) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      ['00000000-0000-0000-0000-000000000000', name, dbType, color || null, icon || null]
     );
+
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Erro ao criar categoria:', err);
+    res.status(500).json({ error: 'Erro interno ao criar categoria' });
   }
 };
 
@@ -67,9 +82,9 @@ const deleteCategory = async (req, res) => {
 };
 
 module.exports = {
-    getAllCategories,
-    getCategoryById,
-    createCategory,
-    updateCategory,
-    deleteCategory
-  };
+  getAllCategories,
+  getCategoryById,
+  createCategory,
+  updateCategory,
+  deleteCategory
+};
