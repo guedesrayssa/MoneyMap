@@ -1,8 +1,6 @@
-// runSQLScript.js
 
 const { Client } = require('pg');
 
-// Configure aqui sua conexão com o banco de dados
 const client = new Client({
   host: 'aws-0-sa-east-1.pooler.supabase.com',
   port: 5432,

@@ -1,2005 +1,417 @@
 <!-- Dashboard Content -->
 <div class="app-container">
   <div id="app">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <div class="logo">
-            <h1><i class="fas fa-map-marked-alt"></i> MoneyMap</h1>
-          </div>
-          <nav class="menu">
-            <ul>
-              <li class="active" data-page="dashboard">
-                <i class="fas fa-chart-line"></i> Dashboard
-              </li>
-              <li data-page="transactions">
-                <i class="fas fa-exchange-alt"></i> Transações
-              </li>
-              <li data-page="categories">
-                <i class="fas fa-tags"></i> Categorias
-              </li>
-              <li data-page="planning">
-                <i class="fas fa-bullseye"></i> Planejamento
-              </li>
-              <li data-page="projections">
-                <i class="fas fa-chart-area"></i> Projeções
-              </li>
-            </ul>
-          </nav>
-          <div class="user-info">
-            <div class="user-name">Controle Financeiro</div>
-            <button id="clear-data-btn" class="btn btn-small">
-              <i class="fas fa-trash"></i> Limpar Dados
-            </button>
-          </div>
-        </div>
-
-        <!-- Conteúdo Principal -->
-        <main class="main-content">
-          <!-- Dashboard -->
-          <section id="dashboard" class="page active">
-            <h2>Dashboard Financeiro</h2>
-            <div class="summary-cards">
-              <div class="card">
-                <h3>Saldo Atual</h3>
-                <div class="card-value" id="current-balance">R$ 0,00</div>
-              </div>
-              <div class="card">
-                <h3>Receitas do Mês</h3>
-                <div class="card-value income" id="month-income">R$ 0,00</div>
-              </div>
-              <div class="card">
-                <h3>Despesas do Mês</h3>
-                <div class="card-value expense" id="month-expenses">
-                  R$ 0,00
-                </div>
-              </div>
-              <div class="card">
-                <h3>Economia Projetada</h3>
-                <div class="card-value" id="projected-savings">R$ 0,00</div>
-              </div>
-            </div>
-            <div class="charts-container">
-              <div class="chart-card">
-                <h3>Despesas por Categoria</h3>
-                <div class="chart-container">
-                  <canvas id="expenses-chart"></canvas>
-                </div>
-              </div>
-              <div class="chart-card">
-                <h3>Evolução Financeira</h3>
-                <div class="chart-container">
-                  <canvas id="balance-chart"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="recent-transactions">
-              <h3>Transações Recentes</h3>
-              <table class="transactions-table">
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Descrição</th>
-                    <th>Categoria</th>
-                    <th>Valor</th>
-                  </tr>
-                </thead>
-                <tbody id="recent-transactions-table">
-                  <!-- Transações recentes serão inseridas aqui via JavaScript -->
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- Transações -->
-          <section id="transactions" class="page">
-            <h2>Gerenciar Transações</h2>
-            <div class="actions-bar">
-              <button id="add-transaction-btn" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Nova Transação
-              </button>
-              <div class="filters">
-                <div class="filter-group">
-                  <label for="filter-month">Mês:</label>
-                  <select id="filter-month">
-                    <option value="0">Janeiro</option>
-                    <option value="1">Fevereiro</option>
-                    <option value="2">Março</option>
-                    <option value="3">Abril</option>
-                    <option value="4">Maio</option>
-                    <option value="5">Junho</option>
-                    <option value="6">Julho</option>
-                    <option value="7">Agosto</option>
-                    <option value="8">Setembro</option>
-                    <option value="9">Outubro</option>
-                    <option value="10">Novembro</option>
-                    <option value="11">Dezembro</option>
-                  </select>
-                </div>
-                <div class="filter-group">
-                  <label for="filter-year">Ano:</label>
-                  <select id="filter-year">
-                    <!-- Anos serão adicionados via JavaScript -->
-                  </select>
-                </div>
-                <div class="filter-group">
-                  <label for="filter-type">Tipo:</label>
-                  <select id="filter-type">
-                    <option value="all">Todos</option>
-                    <option value="income">Receitas</option>
-                    <option value="expense">Despesas</option>
-                  </select>
-                </div>
-                <div class="filter-group">
-                  <label for="filter-category">Categoria:</label>
-                  <select id="filter-category">
-                    <option value="all">Todas</option>
-                    <!-- Categorias serão adicionadas via JavaScript -->
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="transactions-list">
-              <table class="transactions-table">
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Descrição</th>
-                    <th>Categoria</th>
-                    <th>Valor</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="transactions-table">
-                  <!-- Transações serão inseridas aqui via JavaScript -->
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- Categorias -->
-          <section id="categories" class="page">
-            <h2>Gerenciar Categorias</h2>
-            <div class="actions-bar">
-              <button id="add-category-btn" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Nova Categoria
-              </button>
-            </div>
-            <div class="categories-grid" id="categories-grid">
-              <!-- Categorias serão inseridas aqui via JavaScript -->
-            </div>
-          </section>
-
-          <!-- Planejamento -->
-          <section id="planning" class="page">
-            <h2>Planejamento Mensal</h2>
-            <div class="month-selector">
-              <button id="prev-month" class="btn btn-icon">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <h3 id="current-month-year">Janeiro 2024</h3>
-              <button id="next-month" class="btn btn-icon">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-            <div class="budget-container">
-              <div class="budget-header">
-                <h3>Limites de Gastos por Categoria</h3>
-                <button id="set-budget-btn" class="btn btn-small">
-                  <i class="fas fa-edit"></i> Definir Limites
-                </button>
-              </div>
-              <div class="budget-list" id="budget-list">
-                <!-- Orçamentos serão inseridos aqui via JavaScript -->
-              </div>
-            </div>
-          </section>
-
-          <!-- Projeções -->
-          <section id="projections" class="page">
-            <h2>Projeções de Economia</h2>
-            <div class="projection-card">
-              <h3>Meta de Economia</h3>
-              <div class="goal-settings">
-                <div class="form-group">
-                  <label for="savings-goal">Valor da Meta (R$)</label>
-                  <input
-                    type="number"
-                    id="savings-goal"
-                    min="0"
-                    step="0.01"
-                    placeholder="0,00"
-                  />
-                </div>
-                <button id="set-goal-btn" class="btn btn-primary">
-                  Definir Meta
-                </button>
-              </div>
-              <div class="goal-progress">
-                <div class="progress-bar-container">
-                  <div class="progress-bar" id="savings-progress-bar"></div>
-                </div>
-                <div class="progress-info">
-                  <span id="savings-progress">R$ 0,00</span> de
-                  <span id="savings-target">R$ 0,00</span> (<span
-                    id="savings-percentage"
-                    >0%</span
-                  >)
-                </div>
-              </div>
-            </div>
-            <div class="projection-card">
-              <h3>Simulação de Economia</h3>
-              <div class="simulation-form">
-                <div class="form-group">
-                  <label for="monthly-income">Renda Mensal (R$)</label>
-                  <input
-                    type="number"
-                    id="monthly-income"
-                    min="0"
-                    step="0.01"
-                    placeholder="0,00"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="monthly-expenses-sim"
-                    >Despesas Mensais (R$)</label
-                  >
-                  <input
-                    type="number"
-                    id="monthly-expenses-sim"
-                    min="0"
-                    step="0.01"
-                    placeholder="0,00"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="months-to-project">Meses a Projetar</label>
-                  <input
-                    type="number"
-                    id="months-to-project"
-                    min="1"
-                    max="60"
-                    value="12"
-                  />
-                </div>
-                <button id="calculate-projection-btn" class="btn btn-primary">
-                  Calcular
-                </button>
-              </div>
-              <div class="simulation-result">
-                <h4>Resultado da Simulação</h4>
-                <div class="result-card">
-                  <div class="result-item">
-                    <span class="result-label">Economia Mensal:</span>
-                    <span class="result-value" id="monthly-savings"
-                      >R$ 0,00</span
-                    >
-                  </div>
-                  <div class="result-item">
-                    <span class="result-label"
-                      >Total em
-                      <span id="projection-months">12</span> meses:</span
-                    >
-                    <span class="result-value" id="total-savings">R$ 0,00</span>
-                  </div>
-                </div>
-                <div class="chart-container">
-                  <canvas id="projection-chart"></canvas>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h1><i class="fas fa-map-marked-alt"></i> MoneyMap</h1>
       </div>
+      <nav class="menu">
+        <ul>
+          <li
+            class="<%= activeTab === 'dashboard' ? 'active' : '' %>"
+            data-page="dashboard"
+          >
+            <a href="/"><i class="fas fa-chart-line"></i> Dashboard</a>
+          </li>
 
-      <!-- Modais -->
-      <!-- Modal de Nova Transação -->
-      <div id="transaction-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 id="transaction-modal-title">Nova Transação</h3>
-            <button class="close-btn">&times;</button>
-          </div>
-          <div class="modal-body">
-            <form id="transaction-form">
-              <input type="hidden" id="transaction-id" />
-              <div class="form-group">
-                <label for="transaction-type">Tipo</label>
-                <div class="radio-group">
-                  <label class="radio-label">
-                    <input
-                      type="radio"
-                      name="transaction-type"
-                      value="income"
-                    />
-                    Receita
-                  </label>
-                  <label class="radio-label">
-                    <input
-                      type="radio"
-                      name="transaction-type"
-                      value="expense"
-                      checked
-                    />
-                    Despesa
-                  </label>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="transaction-description">Descrição</label>
-                <input
-                  type="text"
-                  id="transaction-description"
-                  required
-                  placeholder="Ex: Compra no supermercado"
-                />
-              </div>
-              <div class="form-group">
-                <label for="transaction-amount">Valor (R$)</label>
-                <input
-                  type="number"
-                  id="transaction-amount"
-                  min="0.01"
-                  step="0.01"
-                  required
-                  placeholder="0,00"
-                />
-              </div>
-              <div class="form-group">
-                <label for="transaction-date">Data</label>
-                <input type="date" id="transaction-date" required />
-              </div>
-              <div class="form-group">
-                <label for="transaction-category">Categoria</label>
-                <select id="transaction-category" required>
-                  <!-- Categorias serão adicionadas via JavaScript -->
-                </select>
-              </div>
-              <div class="form-actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  id="cancel-transaction"
-                >
-                  Cancelar
-                </button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-              </div>
-            </form>
-          </div>
-        </div>
+          <li
+            class="<%= activeTab === 'categories' ? 'active' : '' %>"
+            data-page="categories"
+          >
+            <a href="/categories"><i class="fas fa-tags"></i> Categorias</a>
+          </li>
+          <li
+            class="<%= activeTab === 'goals' ? 'active' : '' %>"
+            data-page="planning"
+          >
+            <a href="/goals"><i class="fas fa-bullseye"></i> Planejamento</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="user-info">
+        <div class="user-name">Controle Financeiro</div>
+        <button id="clear-data-btn" class="btn btn-small">
+          <i class="fas fa-trash"></i> Limpar Dados
+        </button>
       </div>
-
-      <!-- Modal de Nova Categoria -->
-      <div id="category-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 id="category-modal-title">Nova Categoria</h3>
-            <button class="close-btn">&times;</button>
-          </div>
-          <div class="modal-body">
-            <form id="category-form">
-              <input type="hidden" id="category-id" />
-              <div class="form-group">
-                <label for="category-name">Nome</label>
-                <input
-                  type="text"
-                  id="category-name"
-                  required
-                  placeholder="Ex: Alimentação"
-                />
-              </div>
-              <div class="form-group">
-                <label for="category-type">Tipo</label>
-                <div class="radio-group">
-                  <label class="radio-label">
-                    <input type="radio" name="category-type" value="income" />
-                    Receita
-                  </label>
-                  <label class="radio-label">
-                    <input
-                      type="radio"
-                      name="category-type"
-                      value="expense"
-                      checked
-                    />
-                    Despesa
-                  </label>
-                  <label class="radio-label">
-                    <input type="radio" name="category-type" value="both" />
-                    Ambos
-                  </label>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="category-color">Cor</label>
-                <div class="color-picker">
-                  <div
-                    class="color-option selected"
-                    data-color="#C1F8B6"
-                    style="background-color: #c1f8b6"
-                  ></div>
-                  <div
-                    class="color-option"
-                    data-color="#2ECC71"
-                    style="background-color: #2ecc71"
-                  ></div>
-                  <div
-                    class="color-option"
-                    data-color="#2D8561"
-                    style="background-color: #2d8561"
-                  ></div>
-                  <div
-                    class="color-option"
-                    data-color="#2C3E50"
-                    style="background-color: #2c3e50"
-                  ></div>
-                  <div
-                    class="color-option"
-                    data-color="#31629D"
-                    style="background-color: #31629d"
-                  ></div>
-                  <div
-                    class="color-option"
-                    data-color="#3585DB"
-                    style="background-color: #3585db"
-                  ></div>
-                </div>
-                <input
-                  type="hidden"
-                  id="category-color"
-                  value="#C1F8B6"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="category-icon">Ícone</label>
-                <div class="icon-picker">
-                  <div class="icon-option selected" data-icon="fa-home">
-                    <i class="fas fa-home"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-utensils">
-                    <i class="fas fa-utensils"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-car">
-                    <i class="fas fa-car"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-shopping-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-medkit">
-                    <i class="fas fa-medkit"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-graduation-cap">
-                    <i class="fas fa-graduation-cap"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-plane">
-                    <i class="fas fa-plane"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-gamepad">
-                    <i class="fas fa-gamepad"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-gift">
-                    <i class="fas fa-gift"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-money-bill-wave">
-                    <i class="fas fa-money-bill-wave"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-credit-card">
-                    <i class="fas fa-credit-card"></i>
-                  </div>
-                  <div class="icon-option" data-icon="fa-piggy-bank">
-                    <i class="fas fa-piggy-bank"></i>
-                  </div>
-                </div>
-                <input
-                  type="hidden"
-                  id="category-icon"
-                  value="fa-home"
-                  required
-                />
-              </div>
-              <div class="form-actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  id="cancel-category"
-                >
-                  Cancelar
-                </button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal de Definir Orçamento -->
-      <div id="budget-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Definir Limites de Gastos</h3>
-            <button class="close-btn">&times;</button>
-          </div>
-          <div class="modal-body">
-            <form id="budget-form">
-              <div id="budget-categories">
-                <!-- Categorias de orçamento serão inseridas aqui via JavaScript -->
-              </div>
-              <div class="form-actions">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  id="cancel-budget"
-                >
-                  Cancelar
-                </button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal de Confirmação -->
-      <div id="confirm-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Confirmação</h3>
-            <button class="close-btn">&times;</button>
-          </div>
-          <div class="modal-body">
-            <p id="confirm-message">
-              Tem certeza que deseja realizar esta ação?
-            </p>
-            <div class="form-actions">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                id="cancel-confirm"
-              >
-                Cancelar
-              </button>
-              <button type="button" class="btn btn-danger" id="confirm-action">
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Notificações -->
-      <div id="notification" class="notification"></div>
     </div>
 
-    <script>
-      // Inicialização da aplicação
-      document.addEventListener("DOMContentLoaded", function () {
-        // Estado da aplicação
-        const app = {
-          categories: [],
-          transactions: [],
-          budgets: [],
-          savingsGoal: 0,
-          currentPage: "dashboard",
-          currentMonth: new Date().getMonth(),
-          currentYear: new Date().getFullYear(),
-          editingTransaction: null,
-          editingCategory: null,
-          confirmCallback: null,
-          charts: {},
-        };
-
-        // Função para gerar IDs únicos
-        function generateId() {
-          return (
-            Math.random().toString(36).substring(2, 15) +
-            Math.random().toString(36).substring(2, 15)
-          );
-        }
-
-        // Função para mostrar notificações
-        function showNotification(message, type = "info") {
-          const notification = document.getElementById("notification");
-          notification.textContent = message;
-          notification.className = `notification ${type} show`;
-
-          setTimeout(() => {
-            notification.classList.remove("show");
-          }, 3000);
-        }
-
-        // Função para formatar moeda
-        function formatCurrency(amount) {
-          return new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          }).format(amount);
-        } // Função para carregar dados da API
-        async function loadData() {
-          try {
-            // Carregar categorias
-            app.categories = await api.getCategories();
-
-            // Criar categorias padrão se não existirem
-            if (app.categories.length === 0) {
-              const defaultCategories = [
-                {
-                  name: "Salário",
-                  type: "income",
-                  color: "#2ECC71",
-                  icon: "fa-money-bill-wave",
-                },
-                {
-                  name: "Freelance",
-                  type: "income",
-                  color: "#3585DB",
-                  icon: "fa-laptop",
-                },
-                {
-                  name: "Alimentação",
-                  type: "expense",
-                  color: "#31629D",
-                  icon: "fa-utensils",
-                },
-                {
-                  name: "Transporte",
-                  type: "expense",
-                  color: "#2D8561",
-                  icon: "fa-car",
-                },
-                {
-                  name: "Moradia",
-                  type: "expense",
-                  color: "#2C3E50",
-                  icon: "fa-home",
-                },
-                {
-                  name: "Lazer",
-                  type: "expense",
-                  color: "#C1F8B6",
-                  icon: "fa-gamepad",
-                },
-              ];
-
-              for (const category of defaultCategories) {
-                try {
-                  await api.createCategory(category);
-                } catch (error) {
-                  console.error("Erro ao criar categoria padrão:", error);
-                }
-              }
-              app.categories = await api.getCategories();
-            }
-
-            // Carregar transações
-            try {
-              app.transactions = await api.getTransactions();
-            } catch (error) {
-              console.error("Erro ao carregar transações:", error);
-              app.transactions = [];
-            }
-
-            // Carregar orçamentos
-            try {
-              app.budgets = await api.getBudgets();
-            } catch (error) {
-              console.error("Erro ao carregar orçamentos:", error);
-              app.budgets = [];
-            }
-
-            // Carregar meta de economia
-            try {
-              const goals = await api.getGoals();
-              app.savingsGoal = goals.length > 0 ? goals[0].amount : 0;
-            } catch (error) {
-              console.error("Erro ao carregar meta de economia:", error);
-              app.savingsGoal = 0;
-            }
-
-            updateUI();
-          } catch (error) {
-            console.error("Erro ao carregar dados:", error);
-            showNotification(
-              "Erro ao carregar dados. Por favor, tente novamente.",
-              "error"
-            );
-          }
-        } // Funções para salvar dados através da API
-        async function saveCategory(category) {
-          try {
-            if (category.id) {
-              await api.updateCategory(category.id, category);
-            } else {
-              await api.createCategory(category);
-            }
-            await loadData(); // Recarrega os dados
-          } catch (error) {
-            showNotification(
-              "Erro ao salvar categoria: " + error.message,
-              "error"
-            );
-          }
-        }
-
-        async function saveTransaction(transaction) {
-          try {
-            if (transaction.id) {
-              await api.updateTransaction(transaction.id, transaction);
-            } else {
-              await api.createTransaction(transaction);
-            }
-            await loadData(); // Recarrega os dados
-          } catch (error) {
-            showNotification(
-              "Erro ao salvar transação: " + error.message,
-              "error"
-            );
-          }
-        }
-
-        async function saveGoal(goal) {
-          try {
-            if (goal.id) {
-              await api.updateGoal(goal.id, goal);
-            } else {
-              await api.createGoal(goal);
-            }
-            await loadData(); // Recarrega os dados
-          } catch (error) {
-            showNotification("Erro ao salvar meta: " + error.message, "error");
-          }
-        }
-
-        // Função para navegar entre páginas
-        function navigateTo(page) {
-          // Atualizar menu
-          document.querySelectorAll(".menu li").forEach((item) => {
-            item.classList.remove("active");
-          });
-          document
-            .querySelector(`[data-page="${page}"]`)
-            .classList.add("active");
-
-          // Mostrar página
-          document.querySelectorAll(".page").forEach((p) => {
-            p.classList.remove("active");
-          });
-          document.getElementById(page).classList.add("active");
-
-          app.currentPage = page;
-
-          // Renderizar conteúdo da página
-          switch (page) {
-            case "dashboard":
-              renderDashboard();
-              break;
-            case "transactions":
-              renderTransactions();
-              break;
-            case "categories":
-              renderCategories();
-              break;
-            case "planning":
-              renderPlanning();
-              break;
-            case "projections":
-              renderProjections();
-              break;
-          }
-        }
-
-        // Função para abrir modal
-        function openModal(modalId) {
-          document.getElementById(modalId).classList.add("active");
-        }
-
-        // Função para fechar modal
-        function closeModal(modalId) {
-          document.getElementById(modalId).classList.remove("active");
-        }
-
-        // Função para atualizar selects de categoria
-        function updateCategorySelects() {
-          const transactionSelect = document.getElementById(
-            "transaction-category"
-          );
-          const filterSelect = document.getElementById("filter-category");
-
-          // Limpar opções
-          transactionSelect.innerHTML =
-            '<option value="">Selecione uma categoria</option>';
-          filterSelect.innerHTML = '<option value="all">Todas</option>';
-
-          app.categories.forEach((category) => {
-            const option = document.createElement("option");
-            option.value = category.id;
-            option.textContent = category.name;
-            transactionSelect.appendChild(option.cloneNode(true));
-
-            if (category.type === "expense" || category.type === "both") {
-              filterSelect.appendChild(option);
-            }
-          });
-        }
-
-        // Função para atualizar a interface após carregar dados
-        function updateUI() {
-          updateCategorySelects();
-          renderDashboard();
-          if (app.currentPage === "transactions") {
-            renderTransactions();
-          } else if (app.currentPage === "categories") {
-            renderCategories();
-          } else if (app.currentPage === "planning") {
-            renderPlanning();
-          }
-        }
-
-        // Função para renderizar dashboard
-        function renderDashboard() {
-          const currentDate = new Date();
-          const currentMonth = currentDate.getMonth();
-          const currentYear = currentDate.getFullYear();
-
-          // Calcular totais
-          const monthTransactions = app.transactions.filter((t) => {
-            const transactionDate = new Date(t.date);
-            return (
-              transactionDate.getMonth() === currentMonth &&
-              transactionDate.getFullYear() === currentYear
-            );
-          });
-
-          const monthIncome = monthTransactions
-            .filter((t) => t.type === "income")
-            .reduce((sum, t) => sum + t.amount, 0);
-
-          const monthExpenses = monthTransactions
-            .filter((t) => t.type === "expense")
-            .reduce((sum, t) => sum + t.amount, 0);
-
-          const currentBalance = app.transactions.reduce(
-            (sum, t) => sum + (t.type === "income" ? t.amount : -t.amount),
-            0
-          );
-
-          const projectedSavings = monthIncome - monthExpenses;
-
-          // Atualizar cards
-          document.getElementById("current-balance").textContent =
-            formatCurrency(currentBalance);
-          document.getElementById("month-income").textContent =
-            formatCurrency(monthIncome);
-          document.getElementById("month-expenses").textContent =
-            formatCurrency(monthExpenses);
-          document.getElementById("projected-savings").textContent =
-            formatCurrency(projectedSavings);
-
-          // Renderizar gráficos
-          renderExpensesChart();
-          renderBalanceChart();
-
-          // Renderizar transações recentes
-          renderRecentTransactions();
-        }
-
-        // Função para renderizar gráfico de despesas
-        function renderExpensesChart() {
-          const ctx = document
-            .getElementById("expenses-chart")
-            .getContext("2d");
-
-          if (app.charts.expenses) {
-            app.charts.expenses.destroy();
-          }
-
-          const currentDate = new Date();
-          const currentMonth = currentDate.getMonth();
-          const currentYear = currentDate.getFullYear();
-
-          const monthExpenses = app.transactions.filter((t) => {
-            const transactionDate = new Date(t.date);
-            return (
-              t.type === "expense" &&
-              transactionDate.getMonth() === currentMonth &&
-              transactionDate.getFullYear() === currentYear
-            );
-          });
-
-          const expensesByCategory = {};
-          monthExpenses.forEach((transaction) => {
-            const category = app.categories.find(
-              (c) => c.id === transaction.categoryId
-            );
-            const categoryName = category ? category.name : "Sem categoria";
-            const categoryColor = category ? category.color : "#666";
-
-            if (!expensesByCategory[categoryName]) {
-              expensesByCategory[categoryName] = {
-                amount: 0,
-                color: categoryColor,
-              };
-            }
-            expensesByCategory[categoryName].amount += transaction.amount;
-          });
-
-          const labels = Object.keys(expensesByCategory);
-          const data = labels.map((label) => expensesByCategory[label].amount);
-          const colors = labels.map((label) => expensesByCategory[label].color);
-
-          app.charts.expenses = new Chart(ctx, {
-            type: "pie",
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  data: data,
-                  backgroundColor: colors,
-                  borderWidth: 2,
-                  borderColor: "#fff",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "bottom",
-                },
-              },
-            },
-          });
-        }
-
-        // Função para renderizar gráfico de evolução
-        function renderBalanceChart() {
-          const ctx = document.getElementById("balance-chart").getContext("2d");
-
-          if (app.charts.balance) {
-            app.charts.balance.destroy();
-          }
-
-          // Últimos 6 meses
-          const months = [];
-          const balances = [];
-
-          for (let i = 5; i >= 0; i--) {
-            const date = new Date();
-            date.setMonth(date.getMonth() - i);
-
-            const monthTransactions = app.transactions.filter((t) => {
-              const transactionDate = new Date(t.date);
-              return (
-                transactionDate.getMonth() === date.getMonth() &&
-                transactionDate.getFullYear() === date.getFullYear()
-              );
-            });
-
-            const monthBalance = monthTransactions.reduce(
-              (sum, t) => sum + (t.type === "income" ? t.amount : -t.amount),
-              0
-            );
-
-            months.push(date.toLocaleDateString("pt-BR", { month: "short" }));
-            balances.push(monthBalance);
-          }
-
-          app.charts.balance = new Chart(ctx, {
-            type: "line",
-            data: {
-              labels: months,
-              datasets: [
-                {
-                  label: "Saldo Mensal",
-                  data: balances,
-                  borderColor: "#2ECC71",
-                  backgroundColor: "rgba(46, 204, 113, 0.1)",
-                  borderWidth: 2,
-                  fill: true,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  ticks: {
-                    callback: function (value) {
-                      return formatCurrency(value);
-                    },
-                  },
-                },
-              },
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-            },
-          });
-        }
-
-        // Função para renderizar transações recentes
-        function renderRecentTransactions() {
-          const tbody = document.getElementById("recent-transactions-table");
-          tbody.innerHTML = "";
-
-          const recentTransactions = app.transactions
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 5);
-
-          recentTransactions.forEach((transaction) => {
-            const category = app.categories.find(
-              (c) => c.id === transaction.categoryId
-            );
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                      <td>${new Date(transaction.date).toLocaleDateString(
-                        "pt-BR"
-                      )}</td>
-                      <td>${transaction.description}</td>
-                      <td>${category ? category.name : "Sem categoria"}</td>
-                      <td class="${transaction.type}">${formatCurrency(
-              transaction.amount
-            )}</td>
-                  `;
-
-            tbody.appendChild(row);
-          });
-        }
-
-        // Função para renderizar transações
-        function renderTransactions() {
-          const tbody = document.getElementById("transactions-table");
-          tbody.innerHTML = "";
-
-          // Aplicar filtros
-          const filterMonth = parseInt(
-            document.getElementById("filter-month").value
-          );
-          const filterYear = parseInt(
-            document.getElementById("filter-year").value
-          );
-          const filterType = document.getElementById("filter-type").value;
-          const filterCategory =
-            document.getElementById("filter-category").value;
-
-          let filteredTransactions = app.transactions.filter((transaction) => {
-            const transactionDate = new Date(transaction.date);
-
-            // Filtro de mês
-            if (transactionDate.getMonth() !== filterMonth) return false;
-
-            // Filtro de ano
-            if (transactionDate.getFullYear() !== filterYear) return false;
-
-            // Filtro de tipo
-            if (filterType !== "all" && transaction.type !== filterType)
-              return false;
-
-            // Filtro de categoria
-            if (
-              filterCategory !== "all" &&
-              transaction.categoryId !== filterCategory
-            )
-              return false;
-
-            return true;
-          });
-
-          // Ordenar por data (mais recente primeiro)
-          filteredTransactions.sort(
-            (a, b) => new Date(b.date) - new Date(a.date)
-          );
-
-          filteredTransactions.forEach((transaction) => {
-            const category = app.categories.find(
-              (c) => c.id === transaction.categoryId
-            );
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                      <td>${new Date(transaction.date).toLocaleDateString(
-                        "pt-BR"
-                      )}</td>
-                      <td>${transaction.description}</td>
-                      <td>${category ? category.name : "Sem categoria"}</td>
-                      <td class="${transaction.type}">${formatCurrency(
-              transaction.amount
-            )}</td>
-                      <td>
-                          <button class="action-btn edit" onclick="editTransaction('${
-                            transaction.id
-                          }')">
-                              <i class="fas fa-edit"></i>
-                          </button>
-                          <button class="action-btn delete" onclick="deleteTransaction('${
-                            transaction.id
-                          }')">
-                              <i class="fas fa-trash"></i>
-                          </button>
-                      </td>
-                  `;
-
-            tbody.appendChild(row);
-          });
-
-          // Atualizar filtros
-          updateFilters();
-        }
-
-        // Função para atualizar filtros
-        function updateFilters() {
-          const currentDate = new Date();
-
-          // Atualizar filtro de mês
-          document.getElementById("filter-month").value =
-            currentDate.getMonth();
-
-          // Atualizar filtro de ano
-          const yearSelect = document.getElementById("filter-year");
-          yearSelect.innerHTML = "";
-
-          const years = [
-            ...new Set(
-              app.transactions.map((t) => new Date(t.date).getFullYear())
-            ),
-          ];
-          years.sort((a, b) => b - a);
-
-          if (years.length === 0) {
-            years.push(currentDate.getFullYear());
-          }
-
-          years.forEach((year) => {
-            const option = document.createElement("option");
-            option.value = year;
-            option.textContent = year;
-            yearSelect.appendChild(option);
-          });
-
-          yearSelect.value = currentDate.getFullYear();
-        }
-
-        // Função para renderizar categorias
-        function renderCategories() {
-          const grid = document.getElementById("categories-grid");
-          grid.innerHTML = "";
-
-          app.categories.forEach((category) => {
-            const card = document.createElement("div");
-            card.className = "category-card";
-
-            const typeText =
-              category.type === "income"
-                ? "Receita"
-                : category.type === "expense"
-                ? "Despesa"
-                : "Ambos";
-
-            card.innerHTML = `
-                      <div class="category-actions">
-                          <button class="category-action" onclick="editCategory('${category.id}')">
-                              <i class="fas fa-edit"></i>
-                          </button>
-                          <button class="category-action" onclick="deleteCategory('${category.id}')">
-                              <i class="fas fa-trash"></i>
-                          </button>
-                      </div>
-                      <div class="category-icon" style="background-color: ${category.color}">
-                          <i class="fas ${category.icon}"></i>
-                      </div>
-                      <div class="category-name">${category.name}</div>
-                      <div class="category-type">${typeText}</div>
-                  `;
-
-            grid.appendChild(card);
-          });
-        }
-
-        // Função para renderizar planejamento
-        function renderPlanning() {
-          updateCurrentMonthDisplay();
-
-          const budgetList = document.getElementById("budget-list");
-          budgetList.innerHTML = "";
-
-          const expenseCategories = app.categories.filter(
-            (c) => c.type === "expense" || c.type === "both"
-          );
-
-          expenseCategories.forEach((category) => {
-            const budget = app.budgets.find(
-              (b) =>
-                b.categoryId === category.id &&
-                b.month === app.currentMonth &&
-                b.year === app.currentYear
-            );
-
-            if (!budget) return;
-
-            // Calcular gastos da categoria no mês
-            const monthExpenses = app.transactions
-              .filter((t) => {
-                const transactionDate = new Date(t.date);
-                return (
-                  t.type === "expense" &&
-                  t.categoryId === category.id &&
-                  transactionDate.getMonth() === app.currentMonth &&
-                  transactionDate.getFullYear() === app.currentYear
-                );
-              })
-              .reduce((sum, t) => sum + t.amount, 0);
-
-            const percentage =
-              budget.amount > 0 ? (monthExpenses / budget.amount) * 100 : 0;
-            const remaining = budget.amount - monthExpenses;
-
-            let progressColor = "#2ECC71";
-            let statusClass = "";
-
-            if (percentage >= 100) {
-              progressColor = "#e74c3c";
-              statusClass = "budget-danger";
-            } else if (percentage >= 80) {
-              progressColor = "#f39c12";
-              statusClass = "budget-warning";
-            }
-
-            const budgetItem = document.createElement("div");
-            budgetItem.className = "budget-item";
-
-            budgetItem.innerHTML = `
-                      <div class="budget-item-header">
-                          <div class="budget-category">
-                              <div class="budget-category-icon" style="background-color: ${
-                                category.color
-                              }">
-                                  <i class="fas ${category.icon}"></i>
-                              </div>
-                              <span>${category.name}</span>
-                          </div>
-                          <span class="${statusClass}">${formatCurrency(
-              budget.amount
-            )}</span>
-                      </div>
-                      <div class="budget-progress">
-                          <div class="budget-progress-bar" style="width: ${Math.min(
-                            percentage,
-                            100
-                          )}%; background-color: ${progressColor}"></div>
-                      </div>
-                      <div class="budget-info">
-                          <span>Gasto: ${formatCurrency(monthExpenses)}</span>
-                          <span class="${statusClass}">Restante: ${formatCurrency(
-              remaining
-            )}</span>
-                      </div>
-                  `;
-
-            budgetList.appendChild(budgetItem);
-          });
-
-          if (budgetList.children.length === 0) {
-            budgetList.innerHTML =
-              "<p>Nenhum orçamento definido para este mês.</p>";
-          }
-        }
-
-        // Função para renderizar projeções
-        function renderProjections() {
-          updateSavingsProgress();
-        }
-
-        // Função para atualizar progresso da meta de economia
-        function updateSavingsProgress() {
-          const currentDate = new Date();
-          const currentMonth = currentDate.getMonth();
-          const currentYear = currentDate.getFullYear();
-
-          const monthTransactions = app.transactions.filter((t) => {
-            const transactionDate = new Date(t.date);
-            return (
-              transactionDate.getMonth() === currentMonth &&
-              transactionDate.getFullYear() === currentYear
-            );
-          });
-
-          const monthIncome = monthTransactions
-            .filter((t) => t.type === "income")
-            .reduce((sum, t) => sum + t.amount, 0);
-
-          const monthExpenses = monthTransactions
-            .filter((t) => t.type === "expense")
-            .reduce((sum, t) => sum + t.amount, 0);
-
-          const currentSavings = monthIncome - monthExpenses;
-          const percentage =
-            app.savingsGoal > 0 ? (currentSavings / app.savingsGoal) * 100 : 0;
-
-          document.getElementById("savings-progress").textContent =
-            formatCurrency(currentSavings);
-          document.getElementById("savings-target").textContent =
-            formatCurrency(app.savingsGoal);
-          document.getElementById(
-            "savings-percentage"
-          ).textContent = `${Math.round(percentage)}%`;
-
-          const progressBar = document.getElementById("savings-progress-bar");
-          progressBar.style.width = `${Math.min(percentage, 100)}%`;
-        }
-
-        // Função para atualizar display do mês atual
-        function updateCurrentMonthDisplay() {
-          const monthNames = [
-            "Janeiro",
-            "Fevereiro",
-            "Março",
-            "Abril",
-            "Maio",
-            "Junho",
-            "Julho",
-            "Agosto",
-            "Setembro",
-            "Outubro",
-            "Novembro",
-            "Dezembro",
-          ];
-          document.getElementById("current-month-year").textContent = `${
-            monthNames[app.currentMonth]
-          } ${app.currentYear}`;
-        }
-
-        // Função para renderizar gráfico de projeção
-        function renderProjectionChart(monthlySavings, monthsToProject) {
-          const ctx = document
-            .getElementById("projection-chart")
-            .getContext("2d");
-
-          if (app.charts.projection) {
-            app.charts.projection.destroy();
-          }
-
-          const labels = [];
-          const data = [];
-
-          for (let i = 1; i <= monthsToProject; i++) {
-            labels.push(`Mês ${i}`);
-            data.push(monthlySavings * i);
-          }
-
-          app.charts.projection = new Chart(ctx, {
-            type: "line",
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  label: "Economia Acumulada",
-                  data: data,
-                  borderColor: "#2ECC71",
-                  backgroundColor: "rgba(46, 204, 113, 0.1)",
-                  borderWidth: 2,
-                  fill: true,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  ticks: {
-                    callback: function (value) {
-                      return formatCurrency(value);
-                    },
-                  },
-                },
-              },
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-            },
-          });
-        }
-
-        // Funções para editar/deletar transações
-        window.editTransaction = function (id) {
-          const transaction = app.transactions.find((t) => t.id === id);
-          if (!transaction) return;
-
-          app.editingTransaction = transaction;
-
-          document.getElementById("transaction-modal-title").textContent =
-            "Editar Transação";
-          document.getElementById("transaction-id").value = transaction.id;
-          document.querySelector(
-            `input[name="transaction-type"][value="${transaction.type}"]`
-          ).checked = true;
-          document.getElementById("transaction-description").value =
-            transaction.description;
-          document.getElementById("transaction-amount").value =
-            transaction.amount;
-          document.getElementById("transaction-date").value = transaction.date;
-          document.getElementById("transaction-category").value =
-            transaction.categoryId;
-
-          openModal("transaction-modal");
-        };
-
-        window.deleteTransaction = function (id) {
-          app.confirmCallback = function () {
-            app.transactions = app.transactions.filter((t) => t.id !== id);
-            saveTransactions();
-            showNotification("Transação excluída com sucesso!", "success");
-
-            if (app.currentPage === "transactions") {
-              renderTransactions();
-            } else if (app.currentPage === "dashboard") {
-              renderDashboard();
-            }
-          };
-
-          document.getElementById("confirm-message").textContent =
-            "Tem certeza que deseja excluir esta transação?";
-          openModal("confirm-modal");
-        };
-
-        // Funções para editar/deletar categorias
-        window.editCategory = function (id) {
-          const category = app.categories.find((c) => c.id === id);
-          if (!category) return;
-
-          app.editingCategory = category;
-
-          document.getElementById("category-modal-title").textContent =
-            "Editar Categoria";
-          document.getElementById("category-id").value = category.id;
-          document.getElementById("category-name").value = category.name;
-          document.querySelector(
-            `input[name="category-type"][value="${category.type}"]`
-          ).checked = true;
-          document.getElementById("category-color").value = category.color;
-          document.getElementById("category-icon").value = category.icon;
-
-          // Atualizar seletores visuais
-          document.querySelectorAll(".color-option").forEach((opt) => {
-            opt.classList.remove("selected");
-            if (opt.getAttribute("data-color") === category.color) {
-              opt.classList.add("selected");
-            }
-          });
-
-          document.querySelectorAll(".icon-option").forEach((opt) => {
-            opt.classList.remove("selected");
-            if (opt.getAttribute("data-icon") === category.icon) {
-              opt.classList.add("selected");
-            }
-          });
-
-          openModal("category-modal");
-        };
-
-        window.deleteCategory = function (id) {
-          // Verificar se a categoria está sendo usada
-          const isUsed = app.transactions.some((t) => t.categoryId === id);
-
-          if (isUsed) {
-            showNotification(
-              "Não é possível excluir uma categoria que possui transações.",
-              "warning"
-            );
-            return;
-          }
-
-          app.confirmCallback = function () {
-            app.categories = app.categories.filter((c) => c.id !== id);
-            saveCategories();
-            showNotification("Categoria excluída com sucesso!", "success");
-
-            if (app.currentPage === "categories") {
-              renderCategories();
-            }
-
-            updateCategorySelects();
-          };
-
-          document.getElementById("confirm-message").textContent =
-            "Tem certeza que deseja excluir esta categoria?";
-          openModal("confirm-modal");
-        };
-
-        // Função para abrir modal de orçamento
-        function openBudgetModal() {
-          const budgetCategories = document.getElementById("budget-categories");
-          budgetCategories.innerHTML = "";
-
-          const expenseCategories = app.categories.filter(
-            (c) => c.type === "expense" || c.type === "both"
-          );
-
-          expenseCategories.forEach((category) => {
-            const budget = app.budgets.find(
-              (b) =>
-                b.categoryId === category.id &&
-                b.month === app.currentMonth &&
-                b.year === app.currentYear
-            );
-
-            const formGroup = document.createElement("div");
-            formGroup.className = "form-group";
-
-            formGroup.innerHTML = `
-                      <label for="budget-${category.id}">
-                          <i class="fas ${category.icon}" style="color: ${
-              category.color
-            }"></i>
-                          ${category.name}
-                      </label>
-                      <input type="number" id="budget-${
-                        category.id
-                      }" class="budget-input"
-                             data-category="${category.id}" min="0" step="0.01"
-                             value="${
-                               budget ? budget.amount : ""
-                             }" placeholder="0,00">
-                  `;
-
-            budgetCategories.appendChild(formGroup);
-          });
-
-          openModal("budget-modal");
-        }
-
-        // Configurar eventos
-        function setupEvents() {
-          // Navegação
-          document.querySelectorAll(".menu li").forEach((item) => {
-            item.addEventListener("click", function () {
-              const page = this.getAttribute("data-page");
-              navigateTo(page);
-            });
-          });
-
-          // Limpar dados
-          document
-            .getElementById("clear-data-btn")
-            .addEventListener("click", function () {
-              app.confirmCallback = function () {
-                localStorage.clear();
-                app.categories = [];
-                app.transactions = [];
-                app.budgets = [];
-                app.savingsGoal = 0;
-                loadData();
-                showNotification("Todos os dados foram limpos!", "success");
-                navigateTo("dashboard");
-              };
-
-              document.getElementById("confirm-message").textContent =
-                "Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.";
-              openModal("confirm-modal");
-            });
-
-          // Adicionar transação
-          document
-            .getElementById("add-transaction-btn")
-            .addEventListener("click", function () {
-              app.editingTransaction = null;
-              document.getElementById("transaction-modal-title").textContent =
-                "Nova Transação";
-              document.getElementById("transaction-form").reset();
-              document.getElementById("transaction-date").value = new Date()
-                .toISOString()
-                .split("T")[0];
-              openModal("transaction-modal");
-            }); // Formulário de transação
-          document
-            .getElementById("transaction-form")
-            .addEventListener("submit", async function (e) {
-              e.preventDefault();
-
-              try {
-                const id =
-                  document.getElementById("transaction-id").value ||
-                  generateId();
-                const type = document.querySelector(
-                  'input[name="transaction-type"]:checked'
-                ).value;
-                const description = document.getElementById(
-                  "transaction-description"
-                ).value;
-                const amount = parseFloat(
-                  document.getElementById("transaction-amount").value
-                );
-                const date = document.getElementById("transaction-date").value;
-                const categoryId = document.getElementById(
-                  "transaction-category"
-                ).value;
-
-                const transaction = {
-                  id,
-                  type,
-                  description,
-                  amount,
-                  date,
-                  categoryId,
-                  createdAt: new Date().toISOString(),
-                };
-
-                if (app.editingTransaction) {
-                  await api.updateTransaction(transaction.id, transaction);
-                  showNotification(
-                    "Transação atualizada com sucesso!",
-                    "success"
-                  );
-                } else {
-                  await api.createTransaction(transaction);
-                  showNotification(
-                    "Transação adicionada com sucesso!",
-                    "success"
-                  );
-                }
-
-                await loadData(); // Recarrega todos os dados
-                closeModal("transaction-modal");
-                app.editingTransaction = null;
-
-                if (app.currentPage === "transactions") {
-                  renderTransactions();
-                } else if (app.currentPage === "dashboard") {
-                  renderDashboard();
-                }
-              } catch (error) {
-                console.error("Erro ao salvar transação:", error);
-                showNotification(
-                  "Erro ao salvar transação. Por favor, tente novamente.",
-                  "error"
-                );
-              }
-            });
-
-          // Adicionar categoria
-          document
-            .getElementById("add-category-btn")
-            .addEventListener("click", function () {
-              app.editingCategory = null;
-              document.getElementById("category-modal-title").textContent =
-                "Nova Categoria";
-              document.getElementById("category-form").reset();
-              document.getElementById("category-color").value = "#C1F8B6";
-              document.getElementById("category-icon").value = "fa-home";
-
-              // Reset visual selectors
-              document.querySelectorAll(".color-option").forEach((opt) => {
-                opt.classList.remove("selected");
-              });
-              document
-                .querySelector('.color-option[data-color="#C1F8B6"]')
-                .classList.add("selected");
-
-              document.querySelectorAll(".icon-option").forEach((opt) => {
-                opt.classList.remove("selected");
-              });
-              document
-                .querySelector('.icon-option[data-icon="fa-home"]')
-                .classList.add("selected");
-
-              openModal("category-modal");
-            });
-
-          // Formulário de categoria
-          document
-            .getElementById("category-form")
-            .addEventListener("submit", async function (e) {
-              e.preventDefault();
-
-              try {
-                const id =
-                  document.getElementById("category-id").value || generateId();
-                const name = document.getElementById("category-name").value;
-                const type = document.querySelector(
-                  'input[name="category-type"]:checked'
-                ).value;
-                const color = document.getElementById("category-color").value;
-                const icon = document.getElementById("category-icon").value;
-
-                const category = {
-                  id,
-                  name,
-                  type,
-                  color,
-                  icon,
-                };
-
-                if (app.editingCategory) {
-                  await api.updateCategory(category.id, category);
-                  showNotification(
-                    "Categoria atualizada com sucesso!",
-                    "success"
-                  );
-                } else {
-                  await api.createCategory(category);
-                  showNotification(
-                    "Categoria adicionada com sucesso!",
-                    "success"
-                  );
-                }
-
-                await loadData(); // Recarrega todos os dados
-                closeModal("category-modal");
-                app.editingCategory = null;
-
-                if (app.currentPage === "categories") {
-                  renderCategories();
-                }
-
-                updateCategorySelects();
-              } catch (error) {
-                console.error("Erro ao salvar categoria:", error);
-                showNotification(
-                  "Erro ao salvar categoria. Por favor, tente novamente.",
-                  "error"
-                );
-              }
-            });
-
-          // Seletores de cor e ícone
-          document.querySelectorAll(".color-option").forEach((option) => {
-            option.addEventListener("click", function () {
-              const color = this.getAttribute("data-color");
-              document.getElementById("category-color").value = color;
-
-              document.querySelectorAll(".color-option").forEach((opt) => {
-                opt.classList.remove("selected");
-              });
-              this.classList.add("selected");
-            });
-          });
-
-          document.querySelectorAll(".icon-option").forEach((option) => {
-            option.addEventListener("click", function () {
-              const icon = this.getAttribute("data-icon");
-              document.getElementById("category-icon").value = icon;
-
-              document.querySelectorAll(".icon-option").forEach((opt) => {
-                opt.classList.remove("selected");
-              });
-              this.classList.add("selected");
-            });
-          });
-
-          // Filtros
-          document
-            .getElementById("filter-month")
-            .addEventListener("change", renderTransactions);
-          document
-            .getElementById("filter-year")
-            .addEventListener("change", renderTransactions);
-          document
-            .getElementById("filter-type")
-            .addEventListener("change", renderTransactions);
-          document
-            .getElementById("filter-category")
-            .addEventListener("change", renderTransactions);
-
-          // Navegação de mês
-          document
-            .getElementById("prev-month")
-            .addEventListener("click", function () {
-              if (app.currentMonth === 0) {
-                app.currentMonth = 11;
-                app.currentYear--;
-              } else {
-                app.currentMonth--;
-              }
-              renderPlanning();
-            });
-
-          document
-            .getElementById("next-month")
-            .addEventListener("click", function () {
-              if (app.currentMonth === 11) {
-                app.currentMonth = 0;
-                app.currentYear++;
-              } else {
-                app.currentMonth++;
-              }
-              renderPlanning();
-            });
-
-          // Definir orçamento
-          document
-            .getElementById("set-budget-btn")
-            .addEventListener("click", openBudgetModal);
-
-          // Formulário de orçamento
-          document
-            .getElementById("budget-form")
-            .addEventListener("submit", async function (e) {
-              e.preventDefault();
-
-              try {
-                const budgets = [];
-                const budgetInputs = document.querySelectorAll(".budget-input");
-
-                budgetInputs.forEach((input) => {
-                  const categoryId = input.getAttribute("data-category");
-                  const amount = parseFloat(input.value) || 0;
-
-                  if (amount > 0) {
-                    budgets.push({
-                      categoryId,
-                      amount,
-                      month: app.currentMonth,
-                      year: app.currentYear,
-                    });
-                  }
-                });
-
-                // Remover orçamentos antigos do mês atual
-                await api.deleteBudgetsByMonth(
-                  app.currentMonth,
-                  app.currentYear
-                );
-
-                // Adicionar novos orçamentos
-                for (const budget of budgets) {
-                  await api.createBudget(budget);
-                }
-
-                await loadData(); // Recarrega todos os dados
-                closeModal("budget-modal");
-                showNotification(
-                  "Orçamentos definidos com sucesso!",
-                  "success"
-                );
-
-                if (app.currentPage === "planning") {
-                  renderPlanning();
-                }
-              } catch (error) {
-                console.error("Erro ao salvar orçamentos:", error);
-                showNotification(
-                  "Erro ao salvar orçamentos. Por favor, tente novamente.",
-                  "error"
-                );
-              }
-            });
-
-          // Meta de economia
-          document
-            .getElementById("set-goal-btn")
-            .addEventListener("click", async function () {
-              const goalAmount = parseFloat(
-                document.getElementById("savings-goal").value
-              );
-
-              if (isNaN(goalAmount) || goalAmount <= 0) {
-                showNotification(
-                  "Por favor, insira um valor válido para a meta.",
-                  "warning"
-                );
-                return;
-              }
-
-              try {
-                const goals = await api.getGoals();
-                if (goals.length > 0) {
-                  await api.updateGoal(goals[0].id, { amount: goalAmount });
-                } else {
-                  await api.createGoal({ amount: goalAmount });
-                }
-
-                app.savingsGoal = goalAmount;
-                showNotification(
-                  "Meta de economia definida com sucesso!",
-                  "success"
-                );
-                updateSavingsProgress();
-              } catch (error) {
-                console.error("Erro ao salvar meta de economia:", error);
-                showNotification(
-                  "Erro ao salvar meta de economia. Por favor, tente novamente.",
-                  "error"
-                );
-              }
-            });
-
-          // Calcular projeção
-          document
-            .getElementById("calculate-projection-btn")
-            .addEventListener("click", function () {
-              const monthlyIncome = parseFloat(
-                document.getElementById("monthly-income").value
-              );
-              const monthlyExpenses = parseFloat(
-                document.getElementById("monthly-expenses-sim").value
-              );
-              const monthsToProject = parseInt(
-                document.getElementById("months-to-project").value
-              );
-
-              if (
-                isNaN(monthlyIncome) ||
-                isNaN(monthlyExpenses) ||
-                isNaN(monthsToProject)
-              ) {
-                showNotification(
-                  "Por favor, preencha todos os campos corretamente.",
-                  "warning"
-                );
-                return;
-              }
-
-              const monthlySavings = monthlyIncome - monthlyExpenses;
-              const totalSavings = monthlySavings * monthsToProject;
-
-              document.getElementById("monthly-savings").textContent =
-                formatCurrency(monthlySavings);
-              document.getElementById("total-savings").textContent =
-                formatCurrency(totalSavings);
-              document.getElementById("projection-months").textContent =
-                monthsToProject;
-
-              renderProjectionChart(monthlySavings, monthsToProject);
-            });
-
-          // Fechar modais
-          document.querySelectorAll(".close-btn").forEach((button) => {
-            button.addEventListener("click", function () {
-              const modal = this.closest(".modal");
-              closeModal(modal.id);
-            });
-          });
-
-          document.querySelectorAll(".modal").forEach((modal) => {
-            modal.addEventListener("click", function (e) {
-              if (e.target === this) {
-                closeModal(this.id);
-              }
-            });
-          });
-
-          // Botões de cancelar
-          document
-            .getElementById("cancel-transaction")
-            .addEventListener("click", () => closeModal("transaction-modal"));
-          document
-            .getElementById("cancel-category")
-            .addEventListener("click", () => closeModal("category-modal"));
-          document
-            .getElementById("cancel-budget")
-            .addEventListener("click", () => closeModal("budget-modal"));
-          document
-            .getElementById("cancel-confirm")
-            .addEventListener("click", () => closeModal("confirm-modal"));
-
-          // Confirmar ação
-          document
-            .getElementById("confirm-action")
-            .addEventListener("click", function () {
-              if (app.confirmCallback) {
-                app.confirmCallback();
-                app.confirmCallback = null;
-              }
-              closeModal("confirm-modal");
-            });
-        }
-
-        // Inicializar aplicação
-        loadData();
-        setupEvents();
-        updateCategorySelects();
-        navigateTo("dashboard");
-      });
-    </script>
-  </body>
-</html>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <!-- Dashboard -->
+      <section
+        id="dashboard"
+        class="page <%= activeTab === 'dashboard' ? 'active' : '' %>"
+      >
+        <div class="dashboard-header">
+          <h2>Dashboard Financeiro</h2>
+          <button id="add-transaction-btn" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nova Transação
+          </button>
+        </div>
+        <div class="summary-cards">
+          <div class="card">
+            <h3>Saldo Atual</h3>
+            <div class="card-value" id="current-balance">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <h3>Receitas do Mês</h3>
+            <div class="card-value income" id="month-income">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <h3>Despesas do Mês</h3>
+            <div class="card-value expense" id="month-expenses">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <h3>Economia Projetada</h3>
+            <div class="card-value" id="projected-savings">R$ 0,00</div>
+          </div>
+        </div>
+        <div class="charts-container">
+          <div class="chart-card">
+            <h3>Despesas por Categoria</h3>
+            <div class="chart-container">
+              <canvas id="expenses-chart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>Evolução Financeira</h3>
+            <div class="chart-container">
+              <canvas id="balance-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="recent-transactions">
+          <h3>Transações Recentes</h3>
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody id="recent-transactions-table">
+              <!-- Transações recentes serão inseridas aqui via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Categorias -->
+      <section
+        id="categories"
+        class="page <%= activeTab === 'categories' ? 'active' : '' %>"
+      >
+        <h2>Gerenciar Categorias</h2>
+        <div class="actions-bar">
+          <button id="add-category-btn" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nova Categoria
+          </button>
+        </div>
+        <div class="categories-grid" id="categories-grid">
+          <!-- Categorias serão inseridas aqui via JavaScript -->
+        </div>
+      </section>
+
+      <!-- Planejamento -->
+      <section
+        id="planning"
+        class="page <%= activeTab === 'goals' ? 'active' : '' %>"
+      >
+        <h2>Planejamento Mensal</h2>
+        <div class="month-selector">
+          <button id="prev-month" class="btn btn-icon">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <h3 id="current-month-year">Janeiro 2024</h3>
+          <button id="next-month" class="btn btn-icon">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="budget-container">
+          <div class="budget-header">
+            <h3>Limites de Gastos por Categoria</h3>
+            <button id="set-budget-btn" class="btn btn-small">
+              <i class="fas fa-edit"></i> Definir Limites
+            </button>
+          </div>
+          <div class="budget-list" id="budget-list">
+            <!-- Orçamentos serão inseridos aqui via JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modais -->
+  <!-- Modal de Nova Transação -->
+  <div id="transaction-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="transaction-modal-title">Nova Transação</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="transaction-form">
+          <input type="hidden" id="transaction-id" />
+          <div class="form-group">
+            <label for="transaction-type">Tipo</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="transaction-type" value="income" />
+                Receita
+              </label>
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="transaction-type"
+                  value="expense"
+                  checked
+                />
+                Despesa
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="transaction-description">Descrição</label>
+            <input
+              type="text"
+              id="transaction-description"
+              required
+              placeholder="Ex: Compra no supermercado"
+            />
+          </div>
+          <div class="form-group">
+            <label for="transaction-amount">Valor (R$)</label>
+            <input
+              type="number"
+              id="transaction-amount"
+              min="0.01"
+              step="0.01"
+              required
+              placeholder="0,00"
+            />
+          </div>
+          <div class="form-group">
+            <label for="transaction-date">Data</label>
+            <input type="date" id="transaction-date" required />
+          </div>
+          <div class="form-group">
+            <label for="transaction-category">Categoria</label>
+            <select id="transaction-category" required>
+              <!-- Categorias serão adicionadas via JavaScript -->
+            </select>
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn btn-secondary btn-small"
+              id="cancel-transaction"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary btn-small">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Nova Categoria -->
+  <div id="category-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="category-modal-title">Nova Categoria</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="category-form">
+          <input type="hidden" id="category-id" />
+          <div class="form-group">
+            <label for="category-name">Nome</label>
+            <input
+              type="text"
+              id="category-name"
+              required
+              placeholder="Ex: Alimentação"
+            />
+          </div>
+          <div class="form-group">
+            <label for="category-type">Tipo</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="category-type" value="income" />
+                Receita
+              </label>
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="category-type"
+                  value="expense"
+                  checked
+                />
+                Despesa
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="category-color">Cor</label>
+            <div class="color-picker">
+              <div
+                class="color-option selected"
+                data-color="#C1F8B6"
+                style="background-color: #c1f8b6"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#2ECC71"
+                style="background-color: #2ecc71"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#2D8561"
+                style="background-color: #2d8561"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#2C3E50"
+                style="background-color: #2c3e50"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#31629D"
+                style="background-color: #31629d"
+              ></div>
+              <div
+                class="color-option"
+                data-color="#3585DB"
+                style="background-color: #3585db"
+              ></div>
+            </div>
+            <input type="hidden" id="category-color" value="#C1F8B6" required />
+          </div>
+          <div class="form-group">
+            <label for="category-icon">Ícone</label>
+            <div class="icon-picker">
+              <div class="icon-option selected" data-icon="fa-home">
+                <i class="fas fa-home"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-utensils">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-car">
+                <i class="fas fa-car"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-shopping-cart">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-medkit">
+                <i class="fas fa-medkit"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-graduation-cap">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-plane">
+                <i class="fas fa-plane"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-gamepad">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-gift">
+                <i class="fas fa-gift"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-money-bill-wave">
+                <i class="fas fa-money-bill-wave"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-credit-card">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="icon-option" data-icon="fa-piggy-bank">
+                <i class="fas fa-piggy-bank"></i>
+              </div>
+            </div>
+            <input type="hidden" id="category-icon" value="fa-home" required />
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn btn-secondary btn-small"
+              id="cancel-category"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary btn-small">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Definir Orçamento/Metas -->
+  <div id="budget-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Definir Limites de Gastos</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="budget-form">
+          <div id="budget-categories">
+            <!-- Categorias de orçamento serão inseridas aqui via JavaScript -->
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn btn-secondary btn-small"
+              id="cancel-budget"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary btn-small">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Confirmação</h3>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message">Tem certeza que deseja realizar esta ação?</p>
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn btn-secondary btn-small"
+            id="cancel-confirm"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-small"
+            id="confirm-action"
+          >
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notificações -->
+  <div id="notification" class="notification"></div>
+</div>

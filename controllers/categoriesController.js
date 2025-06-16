@@ -53,11 +53,11 @@ const createCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
   const { id } = req.params;
-  const { name, type } = req.body;
+  const { name, type, color, icon } = req.body;
   try {
     const result = await pool.query(
-      'UPDATE categories SET name = $1, type = $2 WHERE id = $3 RETURNING *',
-      [name, type, id]
+      'UPDATE categories SET name = $1, type = $2, color = $3, icon = $4 WHERE id = $5 RETURNING *',
+      [name, type, color, icon, id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Categoria não encontrada' });

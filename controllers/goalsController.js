@@ -7,7 +7,7 @@ const getAllGoals = async (req, res) => {
       SELECT g.*, c.name as category_name 
       FROM goals g 
       LEFT JOIN categories c ON g.category_id = c.id
-      ORDER BY g.deadline ASC
+      ORDER BY g.month ASC
     `);
     res.status(200).json(result.rows);
   } catch (err) {
@@ -17,26 +17,29 @@ const getAllGoals = async (req, res) => {
 };
 
 const createGoal = async (req, res) => {
-  const { user_id, category_id, title, target_amount, current_amount, deadline } = req.body;
+  const { category_id, month, limit_amount } = req.body;
+  const user_id = '00000000-0000-0000-0000-000000000000'; // ID padrão para aplicação sem autenticação
+
   try {
     const result = await pool.query(
-      `INSERT INTO goals (user_id, category_id, title, target_amount, current_amount, deadline)
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [user_id, category_id, title, target_amount, current_amount, deadline]
+      `INSERT INTO goals (user_id, category_id, month, limit_amount)
+       VALUES ($1, $2, $3, $4) RETURNING *`,
+      [user_id, category_id, month, limit_amount]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
+    console.error('Erro ao criar meta:', err);
     res.status(500).json({ error: err.message });
   }
 };
 
 const updateGoal = async (req, res) => {
   const { id } = req.params;
-  const { title, target_amount, current_amount, deadline } = req.body;
+  const { month, limit_amount } = req.body;
   try {
     const result = await pool.query(
-      `UPDATE goals SET title = $1, target_amount = $2, current_amount = $3, deadline = $4 WHERE id = $5 RETURNING *`,
-      [title, target_amount, current_amount, deadline, id]
+      `UPDATE goals SET month = $1, limit_amount = $2 WHERE id = $3 RETURNING *`,
+      [month, limit_amount, id]
     );
     res.json(result.rows[0]);
   } catch (err) {

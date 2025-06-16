@@ -1,29 +1,29 @@
 /* Variáveis de cores da paleta  */
 :root {
-  --color-white: #ECF0F1;
-  --color-light-green: #C1F8B6;
-  --color-medium-green: #2ECC71;
-  --color-dark-green: #2D8561;
-  --color-navy: #2C3E50;
-  --color-medium-blue: #31629D;
-  --color-bright-blue: #3585DB;
-  
-  --color-text: #2C3E50;
-  --color-text-light: #ECF0F1;
-  --color-background: #ECF0F1;
-  --color-sidebar: #2C3E50;
-  --color-primary: #2ECC71;
-  --color-secondary: #31629D;
-  --color-accent: #C1F8B6;
+  --color-white: #ffffff;
+  --color-light-green: #c1f8b6;
+  --color-medium-green: #2ecc71;
+  --color-dark-green: #2d8561;
+  --color-navy: #2c3e50;
+  --color-medium-blue: #31629d;
+  --color-bright-blue: #3585db;
+
+  --color-text: #2c3e50;
+  --color-text-light: #ecf0f1;
+  --color-background: #ecf0f1;
+  --color-sidebar: #2c3e50;
+  --color-primary: #2ecc71;
+  --color-secondary: #31629d;
+  --color-accent: #c1f8b6;
   --color-danger: #e74c3c;
   --color-warning: #f39c12;
-  --color-income: #2ECC71;
+  --color-income: #2ecc71;
   --color-expense: #e74c3c;
-  
+
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   --border-radius: 8px;
   --transition: all 0.3s ease;
 }
@@ -36,13 +36,18 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--color-background);
   color: var(--color-text);
   line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -108,12 +113,22 @@ ul {
   display: flex;
   align-items: center;
   transition: var(--transition);
+  color: var(--color-white);
+}
+
+.menu ul li a {
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .menu ul li i {
   margin-right: 0.75rem;
   width: 20px;
   text-align: center;
+  color: var(--color-white);
 }
 
 .menu ul li:hover {
@@ -131,11 +146,13 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  color: var(--color-white);
 }
 
 .user-name {
   font-weight: 500;
   text-align: center;
+  color: var(--color-white);
 }
 
 /* Conteúdo principal */
@@ -151,6 +168,19 @@ ul {
 
 .page.active {
   display: block;
+}
+
+/* Cabeçalho do Dashboard */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  color: var(--color-text);
 }
 
 /* Botões */
@@ -653,14 +683,16 @@ ul {
 }
 
 /* Seletores de cor e ícone */
-.color-picker, .icon-picker {
+.color-picker,
+.icon-picker {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
-.color-option, .icon-option {
+.color-option,
+.icon-option {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -671,7 +703,8 @@ ul {
   border: 2px solid transparent;
 }
 
-.color-option.selected, .icon-option.selected {
+.color-option.selected,
+.icon-option.selected {
   border-color: var(--color-navy);
 }
 
@@ -721,49 +754,180 @@ ul {
 /* Responsividade */
 @media (max-width: 992px) {
   .charts-container {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
-  
+
   .simulation-form {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
+    width: 100%;
+    height: auto;
+    position: relative;
   }
-  
+
   .main-content {
-      margin-left: 0;
+    margin-left: 0;
   }
-  
+
   .summary-cards {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
-  
+
   .actions-bar {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
+
   .filters {
-      width: 100%;
-      flex-direction: column;
+    width: 100%;
+    flex-direction: column;
   }
-  
+
   .filter-group {
-      width: 100%;
+    width: 100%;
   }
-  
+
   .filter-group select {
-      width: 100%;
+    width: 100%;
   }
-  
+
   .goal-settings {
-      flex-direction: column;
-      align-items: stretch;
+    flex-direction: column;
+    align-items: stretch;
   }
+}
+
+/* Orçamento/Metas */
+.budget-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.budget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.budget-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid #2ecc71;
+}
+
+.budget-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.budget-category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.budget-category-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+}
+
+.budget-category-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.budget-progress {
+  background: #e9ecef;
+  border-radius: 10px;
+  height: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.budget-progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.budget-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.budget-warning {
+  color: #f39c12 !important;
+}
+
+.budget-danger {
+  color: #e74c3c !important;
+}
+
+.month-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Notificações */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  z-index: 10000;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.success {
+  background-color: #2ecc71;
+}
+
+.notification.error {
+  background-color: #e74c3c;
+}
+
+.notification.info {
+  background-color: #3498db;
 }

@@ -171,9 +171,32 @@ Essa arquitetura modular promove a separação de responsabilidades, facilitando
 
 *Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
 
-### 3.6. WebAPI e endpoints (Semana 05)
+### 3.6. WebAPI e endpoints
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+A WebAPI do sistema MoneyMap foi desenvolvida utilizando o framework Express.js, seguindo o padrão RESTful para a criação de endpoints que permitem a interação com os dados do sistema. Abaixo estão os principais endpoints implementados, organizados por funcionalidade:
+#### **Usuários**
+- **POST /users**: Cria um novo usuário.
+- **GET /users/:id**: Recupera os dados de um usuário específico.
+- **PUT /users/:id**: Atualiza as informações de um usuário específico.
+- **DELETE /users/:id**: Remove um usuário específico.
+
+#### **Transações**
+- **POST /transactions**: Cria uma nova transação.
+- **GET /transactions/:id**: Recupera os dados de uma transação específica.
+- **PUT /transactions/:id**: Atualiza as informações de uma transação específica.
+- **DELETE /transactions/:id**: Remove uma transação específica.
+
+#### **Categorias**
+- **POST /categories**: Cria uma nova categoria.
+- **GET /categories/:id**: Recupera os dados de uma categoria específica.
+- **PUT /categories/:id**: Atualiza as informações de uma categoria específica.
+- **DELETE /categories/:id**: Remove uma categoria específica.
+
+#### **Metas**
+- **POST /goals**: Cria uma nova meta.
+- **GET /goals/:id**: Recupera os dados de uma meta específica.
+- **PUT /goals/:id**: Atualiza as informações de uma meta específica.
+- **DELETE /goals/:id**: Remove uma meta específica.
 
 ### 3.7 Interface e Navegação (Semana 07)
 

@@ -1,4 +1,4 @@
-const pool = require('../config/database');  // conexão com o banco de dados
+const pool = require('../config/database');//conexãocomobancodedados
 
 const getAllTransactions = async (req, res) => {
   try {
@@ -25,28 +25,33 @@ const getTransactionById = async (req, res) => {
 };
 
 const createTransaction = async (req, res) => {
-  const { user_id, category_id, title, amount, date, description } = req.body;
+  const { category_id, title, amount, date, description } = req.body;
+  const user_id = '00000000-0000-0000-0000-000000000000'; // ID padrão para aplicação sem autenticação
+
   const query = `
-    INSERT INTO transactions 
-    (user_id, category_id, title, amount, date, description) 
-    VALUES ($1, $2, $3, $4, $5, $6) 
+    INSERT INTO transactions
+    (user_id, category_id, title, amount, date, description)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
   `;
   try {
     // Validação básica
-    if (!user_id || !title || !amount || !date) {
+    if (!title || !amount || !date) {
       return res.status(400).json({ error: "Campos obrigatórios não preenchidos." });
     }
     const result = await pool.query(query, [user_id, category_id, title, amount, date, description]);
     res.status(201).json(result.rows[0]);  // Retorna a transação criada
   } catch (err) {
+    console.error('Erro ao criar transação:', err);
     res.status(500).json({ error: err.message });
   }
 };
 
 const updateTransaction = async (req, res) => {
   const { id } = req.params;
-  const { user_id, category_id, title, amount, date, description } = req.body;
+  const { category_id, title, amount, date, description } = req.body;
+  const user_id = '00000000-0000-0000-0000-000000000000'; // ID padrão para aplicação sem autenticação
+
   const query = `
     UPDATE transactions SET user_id = $1, category_id = $2, title = $3, amount = $4, date = $5, description = $6
     WHERE id = $7 RETURNING *;
@@ -58,6 +63,7 @@ const updateTransaction = async (req, res) => {
     }
     res.status(200).json(result.rows[0]);
   } catch (err) {
+    console.error('Erro ao atualizar transação:', err);
     res.status(500).json({ error: err.message });
   }
 };
